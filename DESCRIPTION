@@ -1,0 +1,27 @@
+Package: jkwidgets
+Title: 'Jupyter' Widgets Extension for 'JuniperKernel'
+Version: 0.0.0.1
+Date: 2018-09-19
+Authors@R: c(
+  person("Spencer Aiello",   role=c("aut", "cre", "cph"), email="spnrpa@gmail.com"),
+  person("Sylvain Corlay",   role="cph"),
+  person("Johan Mabille",    role="cph"))
+Depends:
+  R (>= 3.4.0),
+  JuniperKernel
+Imports:
+	Rcpp (>= 0.11.0),
+	methods
+Suggests:
+	RUnit,
+	roxygen2
+Collate: 'base.R'
+         'jkwidgets.R'
+         'slider.R'
+         'RcppExports.R'
+         'zzz.R'
+LinkingTo: Rcpp, JuniperKernel
+Description: Widgets extension based on xwidgets for the R kernel JuniperKernel.
+URL: https://github.com/spennihana/jkwidgets
+License: GPL (>= 2)
+RoxygenNote: 6.0.1

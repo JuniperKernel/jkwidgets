@@ -1,0 +1,6 @@
+CXX_STD      = CXX14
+
+# set include and linker options
+PKG_CPPFLAGS = -I../inst/include/ -I.
+
+all: $(SHLIB)

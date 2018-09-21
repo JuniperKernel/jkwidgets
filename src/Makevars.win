@@ -1,0 +1,21 @@
+## Distinguish between 32 and 64 bit windows
+ifeq "$(WIN)" "64"
+    FLV = x64
+else
+    FLV = i386
+endif
+R_SCMD = ${R_HOME}/bin${R_ARCH_BIN}/Rscript -e
+LIBPATHS = $(shell ${R_SCMD} "print(.libPaths())")
+
+ZMQ_LDFLAGS = $(shell ${R_SCMD} "library(pbdZMQ); pbdZMQ::get.zmq.ldflags(arch='/"${FLV}"')")
+ZMQ_LDFLAGS = $(shell ${R_SCMD} "library(JuniperKernel); JuniperKernel::JKLdFlags(arch='/"${FLV}"')")
+
+CXX_STD      = CXX14
+
+# set include and linker options
+PKG_CPPFLAGS = -I../inst/include/ -I.
+
+PKG_CPPFLAGS = -I../inst/include -I.
+PKG_LIBS = ${ZMQ_LDFLAGS} $(JK_LDFLAGS)
+
+all: $(SHLIB)
