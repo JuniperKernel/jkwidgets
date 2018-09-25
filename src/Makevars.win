@@ -6,11 +6,10 @@ else
 endif
 R_SCMD = ${R_HOME}/bin${R_ARCH_BIN}/Rscript -e
 LIBPATHS = $(shell ${R_SCMD} "print(.libPaths())")
-
 ZMQ_LDFLAGS = $(shell ${R_SCMD} "library(pbdZMQ); pbdZMQ::get.zmq.ldflags(arch='/"${FLV}"')")
-ZMQ_LDFLAGS = $(shell ${R_SCMD} "library(JuniperKernel); JuniperKernel::JKLdFlags(arch='/"${FLV}"')")
+JK_LDFLAGS = $(shell ${R_SCMD} "library(JuniperKernel); JuniperKernel::JKLdFlags(arch='/"${FLV}"')")
 
-CXX_STD      = CXX14
+CXX_STD = CXX14
 
 # set include and linker options
 PKG_CPPFLAGS = -I../inst/include/ -I.

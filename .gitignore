@@ -31,5 +31,5 @@ inst/include/xeus
 src/Makevars
 *#*
 *~
-inst/xproperty
-inst/xwidgets
+inst/include/xproperty
+inst/include/xwidgets
