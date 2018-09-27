@@ -58,24 +58,6 @@ print.xslider <- function(x, ...) {
   print(x$style)
 }
 
-#' Print Method for Jupyter Slider Styles
-#' @title Print Method for Jupyter Slider Styles
-#' @param x
-#'   Object of type \code{xslider_style}.
-#' @param ...
-#'   Ignored.
-#' @examples
-#' \dontrun{
-#'    slider <- rxSlider(type='int', value=50)
-#'    slider$style
-#' }
-#'
-#' @export
-print.xslider_style <- function(x, ...) {
-  cat(" Description Width: ", x$description_width, "\n")
-  cat(" Handle Color: ", x$handle_color, "\n")
-}
-
 #' Get Slider Widget Value
 #' @title Get Slider Widget Value
 #' @param x
@@ -158,6 +140,24 @@ print.xslider_style <- function(x, ...) {
 
 
 # STYLES
+
+#' Print Method for Jupyter Slider Styles
+#' @title Print Method for Jupyter Slider Styles
+#' @param x
+#'   Object of type \code{xslider_style}.
+#' @param ...
+#'   Ignored.
+#' @examples
+#' \dontrun{
+#'    slider <- rxSlider(type='int', value=50)
+#'    slider$style
+#' }
+#'
+#' @export
+print.xslider_style <- function(x, ...) {
+  cat(" Description Width: ", x$description_width, "\n")
+  cat(" Handle Color: ", x$handle_color, "\n")
+}
 
 #' Get Slider Widget Style
 #' @title Get Slider Widget Style

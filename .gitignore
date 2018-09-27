@@ -33,3 +33,4 @@ src/Makevars
 *~
 inst/include/xproperty
 inst/include/xwidgets
+scripts/stage*

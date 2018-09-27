@@ -44,4 +44,5 @@ if %ERRORLEVEL% EQU 1 exit 1
 mkdir build
 C:\Rtools\bin\mv jkwidgets*gz build
 cd build
-R CMD INSTALL jkwidgets*gz
+::R CMD INSTALL jkwidgets*gz
+R CMD INSTALL --no-multiarch jkwidgets*gz

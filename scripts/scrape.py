@@ -7,15 +7,15 @@ def stage1():
   headers = os.listdir(d)
   for h in headers:
     p = os.path.join(d, h)
-    with open(p, 'rb') as hf:
+    with open(p, 'r') as hf:
       print("file {}".format(h))
       for line in hf:
         ls = line.strip()
         if len(ls) > 5:
           if (ls[0]=='c') and (ls[1]=='l') and (ls[2]=='a') and (ls[3]=='s') and (ls[4]=='s'):
-            print ls
+            print(ls)
         if "XPROPERTY" in ls:
-          print ls
+          print(ls)
 
 def process_xprop(l):
   if "XPROPERTY" not in l:
@@ -27,7 +27,7 @@ def process_xprop(l):
   if "XEITHER" in l:
     m = re.search("XEITHER.*\(", l)
     substr = l[m.end():]
-    p = "[{}]".format(substr).translate(None, '();')
+    p = "[{}]".format(substr).translate({None: '();'})
     choices = p
     l = l[:m.start()]
 
@@ -37,7 +37,9 @@ def process_xprop(l):
   
 def prop_info(xprop):
   info = xprop.split(',')
-  info = [i.strip().translate(None, '();') for i in info]
+#  print([i.strip() for i in info])
+#  sys.exit(1)
+  info = [i.strip().translate({None: '();'}) for i in info]
   return {
     'type': info[0],
     'name': info[2],
@@ -45,7 +47,7 @@ def prop_info(xprop):
   }
  
 def stage2(stage1_result):
-  with open(stage1_result, 'rb') as f:
+  with open(stage1_result, 'r') as f:
     # read a class
     # for each class read N XPROPERTY instances
     # for each XPROPERTY do some extra work

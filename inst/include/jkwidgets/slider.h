@@ -1,21 +1,22 @@
 #ifndef juniper_juniper_slider_H
 #define juniper_juniper_slider_H
 
+#include <xwidgets/xmaterialize.hpp>
 #include <xwidgets/xslider.hpp>
 #include <xwidgets/xnumber.hpp>
 #include <Rcpp.h>
 
-template<typename T>
-SEXP create_externalptr_xslider_t(xw::slider<T>* p, finalizerT finalizer, const char* pname) {
+template<class B, class P...>
+SEXP create_externalptr_xslider_t(xw::xmaterialize<class B, class P...>* p, finalizerT finalizer, const char* pname) {
   SEXP ptr;
   ptr = Rcpp::Shield<SEXP>(R_MakeExternalPtr(reinterpret_cast<void*>(p),Rf_install(pname),R_NilValue));
   R_RegisterCFinalizerEx(ptr, finalizer, TRUE);
   return ptr;
 }
 
-template<typename T>
+template<class B, class P...>
 static void slider_finalizer_t(SEXP o) {
-  xw::slider<T>* t = reinterpret_cast<xw::slider<T>*>(R_ExternalPtrAddr(o));
+	xw::xmaterialize<class B, class P...>* t = reinterpret_cast<xw::xmaterialize<class B, class P...>*>(R_ExternalPtrAddr(o));
   if( t ) {
     delete t;
     R_ClearExternalPtr(o);
