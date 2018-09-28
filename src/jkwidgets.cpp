@@ -6,6 +6,7 @@
 // init static vars now
 std::atomic<long long> JMessage::_ctr{0};
 xmock* _xm;
+
 // [[Rcpp::export]]
 void init_xmock(SEXP xm) {
   _xm = reinterpret_cast<xmock*>(R_ExternalPtrAddr(xm));

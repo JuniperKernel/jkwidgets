@@ -7,14 +7,9 @@
 
 // [[Rcpp::export]]
 SEXP make_slider(const std::string& type, double value) {
-  if( type.compare("float")==0 ) {
-    xw::slider<double>* s = make_slider_t<double>(value);
-    s->display();
-    return create_externalptr_xslider_t<double>(s, slider_finalizer_t<double>, "slider<double>*");
-  }
-  xw::slider<int>* s = make_slider_t<int>(static_cast<int>(value));
-  s->display();
-  return create_externalptr_xslider_t<int>(s, slider_finalizer_t<int>, "slider<int>*");
+	return type.compare("float")==0
+		? make_slider_t<double>(value, "slider<double>*")
+		: make_slider_t<int>(static_cast<int>(value), "slider<int>*");
 }
 
 void slider_value(SEXP s, const std::string& type, SEXP value) {
