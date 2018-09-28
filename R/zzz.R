@@ -3,5 +3,5 @@
 
 .xmock <- function() {
   tryCatch(.JKWIDGETS$xmock <- JuniperKernel::xmock(), error=function(e){})
-	init_xmock(.JKWIDGETS$xmock)
+  init_xmock(.JKWIDGETS$xmock)
 }
