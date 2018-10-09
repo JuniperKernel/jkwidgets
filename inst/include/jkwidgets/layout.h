@@ -4,96 +4,137 @@
 #include <xwidgets/xlayout.hpp>
 #include <Rcpp.h>
 
+using getf = std::function<SEXP(xw::layout&)>;
+using setf = std::function<void(xw::layout&, const std::string&)>;
+using field_map = std::unordered_map<std::string, std::pair<getf, setf>>;
 
-std::vector<std::string> layout_fields() {
-  return
-    std::vector<std::string> {
-      "align_content"  ,
-      "align_items"    ,
-      "align_self"     ,
-      "bottom"         ,
-      "border"         ,
-      "display"        ,
-      "flex"           ,
-      "flex_flow"      ,
-      "height"         ,
-      "justify_content",
-      "left"           ,
-      "margin"         ,
-      "max_height"     ,
-      "max_width"      ,
-      "min_height"     ,
-      "min_width"      ,
-      "overflow"       ,
-      "overflow_x"     ,
-      "overflow_y"     ,
-      "order"          ,
-      "padding"        ,
-      "right"          ,
-      "top"            ,
-      "visibility"     ,
-      "width"
-        };
+field_map& field_map() {
+  static field_map m
+    = {{ "align_content",
+         std::make_pair([](auto layout) { return Rcpp::wrap(layout.align_content().value())},
+                        [](auto layout, auto v) { layout.align_content = v; });
+       },
+       {"align_items",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.align_items().value())},
+                       [](auto layout, auto v) { layout.align_items = v; });
+       },
+       {"align_self",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.align_self().value())},
+                       [](auto layout, auto v) { layout.align_self = v; });
+       },
+       {"bottom",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"border",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.border().value())},
+                       [](auto layout, auto v) { layout.border = v; });
+       },
+       {"display",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.display().value())},
+                       [](auto layout, auto v) { layout.display = v; });
+       },
+       {"flex",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.flex().value())},
+                       [](auto layout, auto v) { layout.flex = v; });
+       },
+       {"flex_flow",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.flex_flow().value())},
+                       [](auto layout, auto v) { layout.flex_flow = v; });
+       },
+       {"height",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"justify_content",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"left",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"margin",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"max_height",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"max_width",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"min_height",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"min_width",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"overflow",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"overflow_x",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"overflow_y",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"order",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"padding",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"right",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"top",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"visibility",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       },
+       {"width",
+        std::make_pair([](auto layout) { return Rcpp::wrap(layout.bottom().value())},
+                       [](auto layout, auto v) { layout.bottom = v; });
+       }};
+    return m;
 }
 
-std::string get_layout_field(xw::layout& layout, const std::string& field) {
-  if( field=="align_content"  ) return layout.align_content().value();
-  if( field=="align_items"    ) return layout.align_items().value();
-  if( field=="align_self"     ) return layout.align_self().value();
-  if( field=="bottom"         ) return layout.bottom().value();
-  if( field=="border"         ) return layout.border().value();
-  if( field=="display"        ) return layout.display().value();
-  if( field=="flex"           ) return layout.flex().value();
-  if( field=="flex_flow"      ) return layout.flex_flow().value();
-  if( field=="height"         ) return layout.height().value();
-  if( field=="justify_content") return layout.justify_content().value();
-  if( field=="left"           ) return layout.left().value();
-  if( field=="margin"         ) return layout.margin().value();
-  if( field=="max_height"     ) return layout.max_height().value();
-  if( field=="max_width"      ) return layout.max_width().value();
-  if( field=="min_height"     ) return layout.min_height().value();
-  if( field=="min_width"      ) return layout.min_width().value();
-  if( field=="overflow"       ) return layout.overflow().value();
-  if( field=="overflow_x"     ) return layout.overflow_x().value();
-  if( field=="overflow_y"     ) return layout.overflow_y().value();
-  if( field=="order"          ) return layout.order().value();
-  if( field=="padding"        ) return layout.padding().value();
-  if( field=="right"          ) return layout.right().value();
-  if( field=="top"            ) return layout.top().value();
-  if( field=="visibility"     ) return layout.visibility().value();
-  if( field=="width"          ) return layout.width().value();
+std::vector<std::string> layout_fields() {
+  std::vector<std::string> fields;
+  auto fmap = field_map();
+  for(auto const& it: fmap)
+    fields.push_back(it.first);
+  return fields;
+}
 
-  Rcpp::stop("Unkown layout field: " + field);
+SEXP get_layout_field(xw::layout& layout, const std::string& field) {
+  auto fmap = field_map();
+  auto f = fmap.find(field);
+  if( f == fmap.end() )
+    return R_NilValue;
+  return f->second.first(layout);
 }
 
 void set_layout_field(xw::layout& layout, const std::string& field, const std::string& value) {
-  if( field=="align_content"  ) layout.align_content = value;
-  if( field=="align_items"    ) layout.align_items = value;
-  if( field=="align_self"     ) layout.align_self = value;
-  if( field=="bottom"         ) layout.bottom = value;
-  if( field=="border"         ) layout.border = value;
-  if( field=="display"        ) layout.display = value;
-  if( field=="flex"           ) layout.flex = value;
-  if( field=="flex_flow"      ) layout.flex_flow = value;
-  if( field=="height"         ) layout.height = value;
-  if( field=="justify_content") layout.justify_content = value;
-  if( field=="left"           ) layout.left = value;
-  if( field=="margin"         ) layout.margin = value;
-  if( field=="max_height"     ) layout.max_height = value;
-  if( field=="max_width"      ) layout.max_width = value;
-  if( field=="min_height"     ) layout.min_height = value;
-  if( field=="min_width"      ) layout.min_width = value;
-  if( field=="overflow"       ) layout.overflow = value;
-  if( field=="overflow_x"     ) layout.overflow_x = value;
-  if( field=="overflow_y"     ) layout.overflow_y = value;
-  if( field=="order"          ) layout.order = value;
-  if( field=="padding"        ) layout.padding = value;
-  if( field=="right"          ) layout.right = value;
-  if( field=="top"            ) layout.top = value;
-  if( field=="visibility"     ) layout.visibility = value;
-  if( field=="width"          ) layout.width = value;
-
-  Rcpp::stop("Unkown layout field: " + field);
+  auto fmap = field_map();
+  auto f = fmap.find(field);
+  if( f == fmap.end() )
+    Rcpp::stop("Unkown layout field: " + field);
+  f->second.second(layout, value);
 }
 
-#endif // #ifndef juniper_slider_exports_H
+#endif // #ifndef jkw_layout_exports_H
